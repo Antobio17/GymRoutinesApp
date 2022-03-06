@@ -13,7 +13,8 @@ public class HomeViewModel extends ViewModel {
         mText.setValue("Añade un nuevo ejercicio para el día seleccionado");
     }
 
-    public LiveData<String> getText() {
+    public LiveData<String> getText()
+    {
         return mText;
     }
 }
