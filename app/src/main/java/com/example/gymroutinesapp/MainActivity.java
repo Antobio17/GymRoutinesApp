@@ -1,10 +1,8 @@
 package com.example.gymroutinesapp;
 
 import android.os.Bundle;
-import android.view.View;
 import android.view.Menu;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
@@ -28,27 +26,30 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Establece la barra superior en la vista de la aplicación
         setSupportActionBar(binding.appBarMain.toolbar);
-        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
+        // Container principal del fragment del menu lateral
         DrawerLayout drawer = binding.drawerLayout;
+        // Menu lateral de XML
         NavigationView navigationView = binding.navView;
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
+        // Crear la navegación del menu lateral (Mis Rutinas, Rutina Activa).
+        // Se accede con el ID que se define en el XML del activity_main_drawer
+        // (hace referencia al una etiqueta completa XML).
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
+                R.id.nav_my_rutines, R.id.nav_active_rutine
         ).setOpenableLayout(drawer).build();
+
+        // Crear el fragment de la navbar lateral
         NavController navController = Navigation.findNavController(
                 this, R.id.nav_host_fragment_content_main
         );
+        // Establecer la ActionBar a la NavBar (Botón para poder abrir el menú)
         NavigationUI.setupActionBarWithNavController(
                 this, navController, mAppBarConfiguration
         );
+        // Establecer la funcionalidad de navegar con el menu lareral al NavigationView
         NavigationUI.setupWithNavController(navigationView, navController);
     }
 

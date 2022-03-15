@@ -3,23 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_my_rutines">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.example.gymroutinesapp.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/nav_my_rutines"
+        android:name="com.example.gymroutinesapp.ui.myroutines.MyRoutinesFragment"
+        android:label="@string/menu_my_routines"
+        tools:layout="@layout/fragment_my_routines" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.gymroutinesapp.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
-
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.gymroutinesapp.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_active_rutine"
+        android:name="com.example.gymroutinesapp.ui.activeroutine.ActiveRoutineFragment"
+        android:label="@string/menu_active_routine"
+        tools:layout="@layout/fragment_active_routine" />
 </navigation>
