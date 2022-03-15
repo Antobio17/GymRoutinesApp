@@ -1,16 +1,17 @@
-package com.example.gymroutinesapp.ui.slideshow;
+package com.example.gymroutinesapp.ui.activeroutine;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SlideshowViewModel extends ViewModel {
+public class ActiveRoutineViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
-    public SlideshowViewModel() {
+    public ActiveRoutineViewModel()
+    {
         mText = new MutableLiveData<>();
-        mText.setValue("This is slideshow fragment");
+        mText.setValue("No hay rutina activa");
     }
 
     public LiveData<String> getText()

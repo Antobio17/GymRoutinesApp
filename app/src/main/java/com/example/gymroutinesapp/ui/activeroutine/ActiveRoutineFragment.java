@@ -1,4 +1,4 @@
-package com.example.gymroutinesapp.ui.home;
+package com.example.gymroutinesapp.ui.activeroutine;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,24 +8,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import com.example.gymroutinesapp.databinding.FragmentHomeBinding;
+import com.example.gymroutinesapp.databinding.FragmentActiveRoutineBinding;
 
-public class HomeFragment extends Fragment {
+public class ActiveRoutineFragment extends Fragment {
 
-private FragmentHomeBinding binding;
+    private FragmentActiveRoutineBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState)
     {
-        HomeViewModel homeViewModel = new ViewModelProvider(this).get(
-                HomeViewModel.class
+        ActiveRoutineViewModel activeRoutineViewModel = new ViewModelProvider(this).get(
+                ActiveRoutineViewModel.class
         );
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentActiveRoutineBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textGallery;
+        activeRoutineViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
         return root;
     }

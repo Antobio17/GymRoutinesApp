@@ -1,16 +1,16 @@
-package com.example.gymroutinesapp.ui.home;
+package com.example.gymroutinesapp.ui.myroutines;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class HomeViewModel extends ViewModel {
+public class MyRoutinesViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
-    public HomeViewModel() {
+    public MyRoutinesViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("Añade un nuevo ejercicio para el día seleccionado");
+        mText.setValue("Actualmente no hay rutinas creadas");
     }
 
     public LiveData<String> getText()
