@@ -49,9 +49,9 @@ public interface ExerciseInterface {
      */
     public static String createTable()
     {
-        return "CREATE TABLE exercise ( " +
-                "id INTEGER " +
-                "name TEXT " +
+        return "CREATE TABLE IF NOT EXISTS exercise ( " +
+                "id INTEGER PRIMARY KEY, " +
+                "name TEXT NOT NULL " +
                 ")";
     }
 
@@ -63,7 +63,7 @@ public interface ExerciseInterface {
      */
     public static String deleteTable()
     {
-        return "DELETE TABLE IF EXISTS exercise";
+        return "DROP TABLE IF EXISTS exercise";
     }
 
 }
