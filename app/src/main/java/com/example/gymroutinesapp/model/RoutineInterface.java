@@ -49,10 +49,11 @@ public interface RoutineInterface {
      */
     public static String createTable()
     {
-        return "CREATE TABLE routine ( " +
-                "id INTEGER " +
-                "name TEXT " +
-                "is_active BOOLEAN " +
+        return "CREATE TABLE IF NOT EXISTS routine ( " +
+                "id INTEGER PRIMARY KEY, " +
+                "name TEXT NOT NULL, " +
+                "is_active BOOLEAN DEFAULT 0, " +
+                "exercises_ids TEXT DEFAULT NULL" +
                 ")";
     }
 
@@ -64,7 +65,7 @@ public interface RoutineInterface {
      */
     public static String deleteTable()
     {
-        return "DELETE TABLE IF EXISTS routine";
+        return "DROP TABLE IF EXISTS routine";
     }
 
 }

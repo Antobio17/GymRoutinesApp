@@ -116,12 +116,12 @@ public interface MeasurementsInterface {
     public static String createTable()
     {
         return "CREATE TABLE measurements ( " +
-                "id INTEGER " +
-                "routine_id INTEGER " +
-                "exercise_id INTEGER " +
-                "time_in_seconds INTEGER " +
-                "weight FLOAT " +
-                "registered_at INTEGER " +
+                "id INTEGER PRIMARY KEY, " +
+                "routine_id INTEGER NOT NULL, " +
+                "exercise_id INTEGER NOT NULL, " +
+                "time_in_seconds INTEGER NOT NULL, " +
+                "weight FLOAT DEFAULT NULL, " +
+                "registered_at INTEGER NOT NULL" +
                 ")";
     }
 
@@ -133,7 +133,7 @@ public interface MeasurementsInterface {
      */
     public static String deleteTable()
     {
-        return "DELETE TABLE IF EXISTS measurements";
+        return "DROP TABLE IF EXISTS measurements";
     }
 
 }
