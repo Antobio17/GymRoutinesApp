@@ -3,6 +3,16 @@ package com.example.gymroutinesapp;
 import android.os.Bundle;
 import android.view.Menu;
 
+import com.example.gymroutinesapp.model.AppDatabase;
+import com.example.gymroutinesapp.model.dao.ExerciseDao;
+import com.example.gymroutinesapp.model.dao.MeasurementsDao;
+import com.example.gymroutinesapp.model.dao.RoutineDao;
+import com.example.gymroutinesapp.model.entity.Exercise;
+import com.example.gymroutinesapp.model.entity.ExerciseInterface;
+import com.example.gymroutinesapp.model.entity.Measurements;
+import com.example.gymroutinesapp.model.entity.MeasurementsInterface;
+import com.example.gymroutinesapp.model.entity.Routine;
+import com.example.gymroutinesapp.model.entity.RoutineInterface;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
@@ -11,13 +21,37 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.gymroutinesapp.databinding.ActivityMainBinding;
+
+import java.util.Date;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+
+    static final Migration MIGRATION_2_3 = new Migration(2, 3) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL(RoutineInterface.dropTable());
+            database.execSQL(RoutineInterface.createTable());
+            database.execSQL(ExerciseInterface.dropTable());
+            database.execSQL(ExerciseInterface.createTable());
+        }
+    };
+
+    static final Migration MIGRATION_3_4 = new Migration(3, 4) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL(MeasurementsInterface.dropTable());
+            database.execSQL(MeasurementsInterface.createTable());
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +85,15 @@ public class MainActivity extends AppCompatActivity {
         );
         // Establecer la funcionalidad de navegar con el menu lareral al NavigationView
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        // Inicialización de la Base de datos
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "gymroutinesapp")
+                .allowMainThreadQueries()
+                .addMigrations(MIGRATION_3_4)
+                .build();
+
+        this.initializeBBDDData(db);
     }
 
     @Override
@@ -71,5 +114,38 @@ public class MainActivity extends AppCompatActivity {
 
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    protected void initializeBBDDData(AppDatabase db)
+    {
+        RoutineDao routineDao = db.routineDao();
+        ExerciseDao exerciseDao = db.exerciseDao();
+        MeasurementsDao measurementsDao = db.measurementsDao();
+
+        Routine routine = routineDao.findOneByID(1);
+        db.routineDao().insertRoutines(
+                new Routine(1, "Weider Routine", true)
+        );
+
+        Exercise exercise = exerciseDao.findOneByID(1);
+        db.exerciseDao().insertExercises(
+                new Exercise(1, "Press de banca")
+        );
+
+        Measurements measurements = measurementsDao.findOneByID(1);
+        db.measurementsDao().insertMeasurements(
+                new Measurements(
+                        1,
+                        1,
+                        1,
+                        62,
+                        (float) 25.0,
+                        (int) new Date().getTime()
+                )
+        );
+
+        List<Routine> routines = routineDao.findAll();
+        List<Exercise> exercises = exerciseDao.findAll();
+        List<Measurements> measurementsList = measurementsDao.findAll();
     }
 }
