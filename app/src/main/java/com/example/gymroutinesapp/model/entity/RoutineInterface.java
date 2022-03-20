@@ -1,4 +1,4 @@
-package com.example.gymroutinesapp.model;
+package com.example.gymroutinesapp.model.entity;
 
 @SuppressWarnings("ALL")
 public interface RoutineInterface {
@@ -10,7 +10,7 @@ public interface RoutineInterface {
      *
      * @return Integer
      */
-    Integer getID();
+    Integer getId();
 
     /**
      * Establece la propiedad ID en la clase.
@@ -19,7 +19,7 @@ public interface RoutineInterface {
      *
      * @return Routine
      */
-    Routine setID(Integer id);
+    Routine setId(Integer id);
 
     /**
      * Obtiene el nombre de la rutina.
@@ -52,8 +52,7 @@ public interface RoutineInterface {
         return "CREATE TABLE IF NOT EXISTS routine ( " +
                 "id INTEGER PRIMARY KEY, " +
                 "name TEXT NOT NULL, " +
-                "is_active BOOLEAN DEFAULT 0, " +
-                "exercises_ids TEXT DEFAULT NULL" +
+                "active INTEGER DEFAULT(0)" +
                 ")";
     }
 
@@ -63,7 +62,7 @@ public interface RoutineInterface {
      *
      * @return String
      */
-    public static String deleteTable()
+    public static String dropTable()
     {
         return "DROP TABLE IF EXISTS routine";
     }

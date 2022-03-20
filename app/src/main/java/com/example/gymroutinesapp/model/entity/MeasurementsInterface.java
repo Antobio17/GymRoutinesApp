@@ -1,4 +1,4 @@
-package com.example.gymroutinesapp.model;
+package com.example.gymroutinesapp.model.entity;
 
 import androidx.annotation.Nullable;
 
@@ -12,7 +12,7 @@ public interface MeasurementsInterface {
      *
      * @return Integer
      */
-    Integer getID();
+    Integer getId();
 
     /**
      * Establece la propiedad ID en la clase.
@@ -21,7 +21,7 @@ public interface MeasurementsInterface {
      *
      * @return Routine
      */
-    Measurements setID(Integer id);
+    Measurements setId(Integer id);
 
     /**
      * Obtiene el ID de la rutina a la que pertenecen las medidas.
@@ -74,9 +74,9 @@ public interface MeasurementsInterface {
     /**
      * Obtiene el peso en Kilogramos que se ha utilizado en la realización del ejercicio.
      *
-     * @return Float
+     * @return float
      */
-    public @Nullable Float getWeight();
+    public float getWeight();
 
     /**
      * Establece la propiedad Weight en la clase.
@@ -85,7 +85,7 @@ public interface MeasurementsInterface {
      *
      * @return Measurements
      */
-    public Measurements setWeight(@Nullable Float weight);
+    public Measurements setWeight(float weight);
 
     /**
      * Obtiene la fecha en formato timestamp en la que se han registrado las medidas.
@@ -117,11 +117,11 @@ public interface MeasurementsInterface {
     {
         return "CREATE TABLE measurements ( " +
                 "id INTEGER PRIMARY KEY, " +
-                "routine_id INTEGER NOT NULL, " +
-                "exercise_id INTEGER NOT NULL, " +
-                "time_in_seconds INTEGER NOT NULL, " +
-                "weight FLOAT DEFAULT NULL, " +
-                "registered_at INTEGER NOT NULL" +
+                "routine_id INTEGER, " +
+                "exercise_id INTEGER, " +
+                "time_in_seconds INTEGER, " +
+                "weight REAL NOT NULL DEFAULT(-1), " +
+                "registered_at INTEGER" +
                 ")";
     }
 
@@ -131,7 +131,7 @@ public interface MeasurementsInterface {
      *
      * @return String
      */
-    public static String deleteTable()
+    public static String dropTable()
     {
         return "DROP TABLE IF EXISTS measurements";
     }

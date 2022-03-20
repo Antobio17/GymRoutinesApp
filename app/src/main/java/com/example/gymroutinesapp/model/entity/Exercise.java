@@ -1,17 +1,28 @@
-package com.example.gymroutinesapp.model;
+package com.example.gymroutinesapp.model.entity;
+
+import androidx.room.Entity;
+import androidx.room.ColumnInfo;
+import androidx.room.PrimaryKey;
+import androidx.annotation.NonNull;
 
 /**
  * Clase Exercise para instanciar un ejercicio.
  */
-public class Exercise implements ExerciseInterface {
+@Entity(tableName = "exercise")
+public class Exercise implements ExerciseInterface
+{
 
     // ***************************************** CONST **************************************** //
 
     // ************************************** PROPERTIES ************************************** //
 
+    @PrimaryKey
+    @ColumnInfo(name = "id")
     private Integer id;
 
-    private String name;
+    @ColumnInfo(name = "name")
+    @NonNull
+    private String name = "Ejercicio";
 
     // *************************************** CONSTRUCT ************************************** //
 
@@ -23,8 +34,8 @@ public class Exercise implements ExerciseInterface {
      */
     public Exercise(Integer id, String name)
     {
-        this.setID(id)
-                .setName(name);
+        this.setId(id)
+            .setName(name);
     }
 
     // *********************************** GETTERS AND SETTERS ******************************** //
@@ -33,7 +44,7 @@ public class Exercise implements ExerciseInterface {
      * {@inheritDoc}
      * @return Integer
      */
-    public Integer getID()
+    public Integer getId()
     {
         return this.id;
     }
@@ -42,7 +53,7 @@ public class Exercise implements ExerciseInterface {
      * {@inheritDoc}
      * @return Exercise
      */
-    public Exercise setID(Integer id)
+    public Exercise setId(Integer id)
     {
         this.id = id;
 
@@ -53,6 +64,7 @@ public class Exercise implements ExerciseInterface {
      * {@inheritDoc}
      * @return String
      */
+    @NonNull
     public String getName()
     {
         return this.name;
