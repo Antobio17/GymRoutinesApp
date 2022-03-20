@@ -1,4 +1,4 @@
-package com.example.gymroutinesapp.model;
+package com.example.gymroutinesapp.model.entity;
 
 @SuppressWarnings("ALL")
 public interface ExerciseInterface {
@@ -10,7 +10,7 @@ public interface ExerciseInterface {
      *
      * @return Integer
      */
-    Integer getID();
+    Integer getId();
 
     /**
      * Establece la propiedad ID en la clase.
@@ -19,7 +19,7 @@ public interface ExerciseInterface {
      *
      * @return Routine
      */
-    Exercise setID(Integer id);
+    Exercise setId(Integer id);
 
     /**
      * Obtiene el nombre del ejercicio.
@@ -51,7 +51,7 @@ public interface ExerciseInterface {
     {
         return "CREATE TABLE IF NOT EXISTS exercise ( " +
                 "id INTEGER PRIMARY KEY, " +
-                "name TEXT NOT NULL " +
+                "name TEXT NOT NULL" +
                 ")";
     }
 
@@ -61,7 +61,7 @@ public interface ExerciseInterface {
      *
      * @return String
      */
-    public static String deleteTable()
+    public static String dropTable()
     {
         return "DROP TABLE IF EXISTS exercise";
     }

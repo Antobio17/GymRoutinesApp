@@ -1,26 +1,36 @@
-package com.example.gymroutinesapp.model;
+package com.example.gymroutinesapp.model.entity;
 
-import androidx.annotation.Nullable;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 /**
  * Clase Exercise para instanciar un ejercicio.
  */
+@Entity(tableName = "measurements")
 public class Measurements implements MeasurementsInterface {
 
     // ***************************************** CONST **************************************** //
 
     // ************************************** PROPERTIES ************************************** //
 
+    @PrimaryKey
+    @ColumnInfo(name = "id")
     private Integer id;
 
+    @ColumnInfo(name = "routine_id")
     private Integer routineID;
 
+    @ColumnInfo(name = "exercise_id")
     private Integer exerciseID;
 
+    @ColumnInfo(name = "time_in_seconds")
     private Integer timeInSeconds;
 
-    private @Nullable Float weight;
+    @ColumnInfo(name = "weight", defaultValue = "-1")
+    private float weight;
 
+    @ColumnInfo(name = "registered_at")
     private Integer registeredAt;
 
     // *************************************** CONSTRUCT ************************************** //
@@ -36,9 +46,9 @@ public class Measurements implements MeasurementsInterface {
      * @param registeredAt Fecha en formato timestamp en la que se han registrado las medidas.
      */
     public Measurements(Integer id, Integer routineID, Integer exerciseID, Integer timeInSeconds,
-                        @Nullable Float weight, Integer registeredAt)
+                        float weight, Integer registeredAt)
     {
-        this.setID(id)
+        this.setId(id)
                 .setRoutineID(routineID)
                 .setExerciseID(exerciseID)
                 .setTimeInSeconds(timeInSeconds)
@@ -52,7 +62,7 @@ public class Measurements implements MeasurementsInterface {
      * {@inheritDoc}
      * @return Integer
      */
-    public Integer getID()
+    public Integer getId()
     {
         return id;
     }
@@ -61,7 +71,7 @@ public class Measurements implements MeasurementsInterface {
      * {@inheritDoc}
      * @return Exercise
      */
-    public Measurements setID(Integer id)
+    public Measurements setId(Integer id)
     {
         this.id = id;
 
@@ -132,7 +142,7 @@ public class Measurements implements MeasurementsInterface {
      * {@inheritDoc}
      * @return Float
      */
-    public @Nullable Float getWeight()
+    public float getWeight()
     {
         return this.weight;
     }
@@ -141,7 +151,7 @@ public class Measurements implements MeasurementsInterface {
      * {@inheritDoc}
      * @return Measurements
      */
-    public Measurements setWeight(@Nullable Float weight)
+    public Measurements setWeight(float weight)
     {
         this.weight = weight;
 

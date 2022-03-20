@@ -1,17 +1,31 @@
-package com.example.gymroutinesapp.model;
+package com.example.gymroutinesapp.model.entity;
+
+import androidx.room.Entity;
+import androidx.room.ColumnInfo;
+import androidx.room.PrimaryKey;
+import androidx.annotation.NonNull;
 
 /**
  * Clase Routine para instanciar una rutina.
  */
-public class Routine implements RoutineInterface{
+@Entity(tableName = "routine")
+public class Routine implements RoutineInterface
+{
 
     // ***************************************** CONST **************************************** //
 
     // ************************************** PROPERTIES ************************************** //
 
+    @PrimaryKey
+    @ColumnInfo(name = "id")
     private Integer id;
 
-    private String name;
+    @ColumnInfo(name = "name")
+    @NonNull
+    private String name = "Rutina";
+
+    @ColumnInfo(name = "active", defaultValue = "0")
+    private Boolean active;
 
     // *************************************** CONSTRUCT ************************************** //
 
@@ -21,10 +35,11 @@ public class Routine implements RoutineInterface{
      * @param id ID de la rutina.
      * @param name Nombre de la rutina.
      */
-    public Routine(Integer id, String name)
+    public Routine(Integer id, String name, Boolean active)
     {
-        this.setID(id)
-            .setName(name);
+        this.setId(id)
+            .setName(name)
+            .setActive(active);
     }
 
     // *********************************** GETTERS AND SETTERS ******************************** //
@@ -33,7 +48,7 @@ public class Routine implements RoutineInterface{
      * {@inheritDoc}
      * @return Integer
      */
-    public Integer getID()
+    public Integer getId()
     {
         return this.id;
     }
@@ -42,7 +57,7 @@ public class Routine implements RoutineInterface{
      * {@inheritDoc}
      * @return Routine
      */
-    public Routine setID(Integer id)
+    public Routine setId(Integer id)
     {
         this.id = id;
 
@@ -53,6 +68,7 @@ public class Routine implements RoutineInterface{
      * {@inheritDoc}
      * @return String
      */
+    @NonNull
     public String getName()
     {
         return this.name;
@@ -65,6 +81,26 @@ public class Routine implements RoutineInterface{
     public Routine setName(String name)
     {
         this.name = name;
+
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     * @return String
+     */
+    public Boolean getActive()
+    {
+        return this.active;
+    }
+
+    /**
+     * {@inheritDoc}
+     * @return Routine
+     */
+    public Routine setActive(Boolean active)
+    {
+        this.active = active;
 
         return this;
     }
