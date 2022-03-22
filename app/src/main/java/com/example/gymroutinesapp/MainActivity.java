@@ -128,9 +128,8 @@ public class MainActivity extends AppCompatActivity {
         );
 
         Exercise exercise = exerciseDao.findOneByID(1);
-        db.exerciseDao().insertExercises(
-                new Exercise(1, "Press de banca")
-        );
+        db.exerciseDao().insertExercises(new Exercise(1, "Press de banca"));
+        db.exerciseDao().insertExercises(new Exercise(2, "Press militar"));
 
         Measurements measurements = measurementsDao.findOneByID(1);
         db.measurementsDao().insertMeasurements(
@@ -143,7 +142,28 @@ public class MainActivity extends AppCompatActivity {
                         (int) new Date().getTime()
                 )
         );
+        db.measurementsDao().insertMeasurements(
+                new Measurements(
+                        2,
+                        1,
+                        1,
+                        55,
+                        (float) 25.0,
+                        (int) new Date().getTime()
+                )
+        );
+        db.measurementsDao().insertMeasurements(
+                new Measurements(
+                        3,
+                        1,
+                        2,
+                        70,
+                        (float) 15.0,
+                        (int) new Date().getTime()
+                )
+        );
 
+        List<Exercise> exercisesByRoutine = exerciseDao.findByRoutineID(1);
         List<Routine> routines = routineDao.findAll();
         List<Exercise> exercises = exerciseDao.findAll();
         List<Measurements> measurementsList = measurementsDao.findAll();
