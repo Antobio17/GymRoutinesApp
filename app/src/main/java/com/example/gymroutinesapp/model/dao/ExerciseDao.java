@@ -26,6 +26,12 @@ public interface ExerciseDao {
     @Query("SELECT * FROM exercise")
     public List<Exercise> findAll();
 
+    @Query("SELECT ex.* FROM measurements me " +
+            "LEFT JOIN exercise ex ON me.exercise_id = ex.id " +
+            "WHERE me.routine_id = :routineID " +
+            "GROUP BY ex.id")
+    public List<Exercise> findByRoutineID(int routineID);
+
     @Query("SELECT * FROM exercise WHERE id = :id")
     public Exercise findOneByID(int id);
 }
