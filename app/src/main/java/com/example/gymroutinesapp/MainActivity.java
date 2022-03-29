@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.Menu;
 
 import com.example.gymroutinesapp.model.AppDatabase;
+import com.example.gymroutinesapp.model.adapter.ExerciseAdapter;
 import com.example.gymroutinesapp.model.dao.ExerciseDao;
 import com.example.gymroutinesapp.model.dao.MeasurementsDao;
 import com.example.gymroutinesapp.model.dao.RoutineDao;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    public static AppDatabase db;
 
     static final Migration MIGRATION_2_3 = new Migration(2, 3) {
         @Override
@@ -87,13 +89,13 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         // Inicialización de la Base de datos
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+        db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "gymroutinesapp")
                 .allowMainThreadQueries()
                 .addMigrations(MIGRATION_3_4)
                 .build();
 
-        this.initializeBBDDData(db);
+        this._initializeBBDDData(db);
     }
 
     @Override
@@ -116,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    protected void initializeBBDDData(AppDatabase db)
+    private void _initializeBBDDData(AppDatabase db)
     {
         RoutineDao routineDao = db.routineDao();
         ExerciseDao exerciseDao = db.exerciseDao();
@@ -148,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                         1,
                         1,
                         55,
-                        (float) 25.0,
+                        (float) 27.5,
                         (int) new Date().getTime()
                 )
         );
