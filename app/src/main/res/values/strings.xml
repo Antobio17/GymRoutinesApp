@@ -8,4 +8,5 @@
 
     <string name="menu_my_routines">Mis Rutinas</string>
     <string name="menu_active_routine">Rutina Activa</string>
+    <string name="title_activity_exercise">ExerciseActivity</string>
 </resources>
