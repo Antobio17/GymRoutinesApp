@@ -28,4 +28,7 @@ public interface RoutineDao {
 
     @Query("SELECT * FROM routine WHERE id = :id")
     public Routine findOneByID(int id);
+
+    @Query("SELECT * FROM routine WHERE active = 1 LIMIT 1")
+    public Routine findActiveRoutine();
 }

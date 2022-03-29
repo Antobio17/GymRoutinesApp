@@ -15,17 +15,22 @@ import java.util.List;
 public interface MeasurementsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insertMeasurements(Measurements... measurements);
+    void insertMeasurements(Measurements... measurements);
 
     @Update
-    public void updateMeasurements(Measurements... measurements);
+    void updateMeasurements(Measurements... measurements);
 
     @Delete
-    public void deleteMeasurements(Measurements... measurements);
+    void deleteMeasurements(Measurements... measurements);
 
     @Query("SELECT * FROM measurements")
-    public List<Measurements> findAll();
+    List<Measurements> findAll();
 
     @Query("SELECT * FROM measurements WHERE id = :id")
-    public Measurements findOneByID(int id);
+    Measurements findOneByID(int id);
+
+    @Query("SELECT * FROM measurements " +
+            "WHERE routine_id = :idActiveRoutine AND exercise_id = :idExercise " +
+            "ORDER BY id DESC LIMIT 1")
+    Measurements findLastMeasurement(int idActiveRoutine, int idExercise);
 }
