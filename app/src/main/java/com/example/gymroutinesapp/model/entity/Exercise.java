@@ -5,11 +5,13 @@ import androidx.room.ColumnInfo;
 import androidx.room.PrimaryKey;
 import androidx.annotation.NonNull;
 
+import java.io.Serializable;
+
 /**
  * Clase Exercise para instanciar un ejercicio.
  */
 @Entity(tableName = "exercise")
-public class Exercise implements ExerciseInterface
+public class Exercise implements ExerciseInterface, Serializable
 {
 
     // ***************************************** CONST **************************************** //

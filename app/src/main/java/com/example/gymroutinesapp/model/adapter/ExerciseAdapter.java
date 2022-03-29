@@ -23,12 +23,20 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
     private List<Exercise> exercises;
     private LayoutInflater inflater; // Identidicar de que archivo viene el layout
     private Context context;
+    final ExerciseAdapter.OnItemClickListener listener;
 
-    public ExerciseAdapter(List<Exercise> exercises, Context context)
+    public interface OnItemClickListener
+    {
+        void onItemClick(Exercise exercise);
+    }
+
+    public ExerciseAdapter(List<Exercise> exercises, Context context,
+                           ExerciseAdapter.OnItemClickListener listener)
     {
         this.inflater = LayoutInflater.from(context);
         this.context = context;
         this.exercises = exercises;
+        this.listener = listener;
     }
 
     @NonNull
@@ -82,12 +90,20 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
             if (lastMeasurement != null) {
                 if (lastMeasurement.getWeight() != -1) {
                     lastMeasureText = lastMeasurement.getWeight() + " KG";
+                    iconImage.setBackgroundResource(R.drawable.ic_weight);
                 } else {
                     lastMeasureText = lastMeasurement.getTimeInSeconds() + " seg";
+                    iconImage.setBackgroundResource(R.drawable.ic_running);
                 }
             }
             name.setText(exercise.getName());
             lastMeasure.setText(lastMeasureText);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onItemClick(exercise);
+                }
+            });
         }
     }
 }
