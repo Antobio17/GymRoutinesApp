@@ -5,11 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -54,7 +52,7 @@ public class ActiveRoutineFragment extends Fragment {
         if (routine != null) {
             this.exercises = new ArrayList<>();
             this.exercises.addAll(db.exerciseDao().findByRoutineID(routine.getId()));
-            ExerciseAdapter exerciseAdapter = new ExerciseAdapter(exercises, view.getContext(),
+            ExerciseAdapter exerciseAdapter = new ExerciseAdapter(this.exercises, view.getContext(),
                     new ExerciseAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(Exercise exercise) {
@@ -67,7 +65,7 @@ public class ActiveRoutineFragment extends Fragment {
             recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
             recyclerView.setAdapter(exerciseAdapter);
 
-            // Establecer el titulo al Action Bar con el nombre de la rutina activa
+            // Establecer el título al Action Bar con el nombre de la rutina activa
             if (((AppCompatActivity) getActivity()) != null) {
                 //noinspection ConstantConditions
                 ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(routine.getName());
