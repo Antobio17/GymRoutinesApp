@@ -92,10 +92,10 @@ public class MainActivity extends AppCompatActivity {
         db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "gymroutinesapp")
                 .allowMainThreadQueries()
-                .addMigrations(MIGRATION_3_4)
+//                .addMigrations(MIGRATION_3_4)
                 .build();
 
-        this._initializeBBDDData(db);
+//        this._initializeBBDDData(db);
     }
 
     @Override

@@ -2,18 +2,17 @@ package com.example.gymroutinesapp.model.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.gymroutinesapp.MainActivity;
 import com.example.gymroutinesapp.R;
-import com.example.gymroutinesapp.model.entity.Exercise;
 import com.example.gymroutinesapp.model.entity.Measurements;
 
 import java.util.List;
@@ -70,9 +69,31 @@ public class MeasurementsAdapter extends RecyclerView.Adapter<MeasurementsAdapte
             weight = itemView.findViewById(R.id.weight);
         }
 
+        @SuppressLint("SetTextI18n")
         void bindData(final Measurements measurements)
         {
-            // TODO bindear los datos
+            performedAt.setText(DateFormat.format(
+                    "dd-MM-yyyy h:m:s", measurements.getRegisteredAt()
+            ).toString());
+
+            int minutes = measurements.getTimeInSeconds() / 60;
+            int seconds = measurements.getTimeInSeconds() % 60;
+            String timeText = "Realizado en: ";
+            if (minutes > 0)
+                timeText += minutes + "' ";
+            timeText += seconds + "''";
+            timeInSeconds.setText(timeText);
+
+            if (measurements.getWeight() != -1) {
+                weight.setText("Peso: " + measurements.getWeight() + "KG");
+            } else {
+                weight.setText("");
+                timeInSeconds.setGravity(1);
+                RelativeLayout.LayoutParams params =
+                        (RelativeLayout.LayoutParams)timeInSeconds.getLayoutParams();
+                params.setMarginStart(0);
+                timeInSeconds.setLayoutParams(params);
+            }
         }
     }
 }
