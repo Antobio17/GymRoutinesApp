@@ -92,7 +92,11 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
                     lastMeasureText = lastMeasurement.getWeight() + " KG";
                     iconImage.setBackgroundResource(R.drawable.ic_weight);
                 } else {
-                    lastMeasureText = lastMeasurement.getTimeInSeconds() + " seg";
+                    int minutes = lastMeasurement.getTimeInSeconds() / 60;
+                    int seconds = lastMeasurement.getTimeInSeconds() % 60;
+                    if (minutes > 0)
+                        lastMeasureText += minutes + "' ";
+                    lastMeasureText += seconds + "''";
                     iconImage.setBackgroundResource(R.drawable.ic_running);
                 }
             }
