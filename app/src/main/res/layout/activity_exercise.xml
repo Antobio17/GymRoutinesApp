@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ExerciseActivity">
 
     <TextView
@@ -20,35 +20,104 @@
 
     <Chronometer
         android:id="@+id/chronometer_activity"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
+        android:layout_marginStart="80dp"
         android:gravity="center"
         android:textSize="40sp"/>
 
-    <Button
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/iniciar"
+        android:layout_gravity="bottom|end"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="16dp"
+        android:layout_toEndOf="@+id/chronometer_activity"
         android:onClick="startChronometer"
-        android:layout_marginTop="150dp"
-        android:layout_marginStart="90dp"/>
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        app:backgroundTint="#C2C2FD"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_baseline_play_arrow_24"
+        tools:ignore="ContentDescription" />
 
-    <Button
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/finalizar"
+        android:layout_gravity="bottom|end"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="80dp"
+        android:layout_toEndOf="@+id/chronometer_activity"
         android:onClick="finishChronometer"
-        android:layout_marginTop="150dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="80dp"/>
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        app:backgroundTint="#C2C2FD"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_baseline_stop_24"
+        tools:ignore="ContentDescription" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/measurementsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="230dp"
-        android:paddingTop="10dp"
-        android:background="#C2C2FD"/>
+        android:layout_marginTop="300dp"
+        android:background="#C2C2FD"
+        android:paddingTop="10dp" />
+
+    <TextView
+        android:id="@+id/weightMeasurement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="220dp"
+        android:gravity="center"
+        android:text="0 KG"
+        android:textColor="@android:color/black"
+        android:textSize="23sp"
+        tools:ignore="HardcodedText" />
+
+    <Switch
+        android:id="@+id/switchWeightMeasurement"
+        android:layout_marginTop="155dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:text="Añadir peso"
+        android:onClick="onChangeSwitch"
+        tools:ignore="HardcodedText,UseSwitchCompatOrMaterialXml" />
+
+    <Button
+        android:id="@+id/buttonIncreaseWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:backgroundTint="#FFFFFF"
+        android:text="+"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="200dp"
+        android:onClick="increaseWeight"
+        android:textSize="35sp"
+        android:textColor="@android:color/black"
+        tools:ignore="HardcodedText"
+        style="?android:attr/borderlessButtonStyle"/>
+
+    <Button
+        android:id="@+id/buttonReduceWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:backgroundTint="#FFFFFF"
+        android:text="-"
+        android:textStyle="bold"
+        android:layout_marginStart="90dp"
+        android:layout_marginTop="200dp"
+        android:onClick="reduceWeight"
+        android:textSize="36sp"
+        android:textColor="@android:color/black"
+        tools:ignore="HardcodedText"
+        style="?android:attr/borderlessButtonStyle"/>
 
 </RelativeLayout>
