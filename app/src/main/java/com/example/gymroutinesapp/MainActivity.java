@@ -134,6 +134,8 @@ public class MainActivity extends AppCompatActivity {
         db.exerciseDao().insertExercises(new Exercise(2, "Press de banca"));
         db.exerciseDao().insertExercises(new Exercise(3, "Press militar"));
 
+        int currentTimestamp = (int) (new Date().getTime()/1000);
+
         db.measurementsDao().insertMeasurements(
                 new Measurements(
                         1,
@@ -141,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                         1,
                         1800,
                         -1,
-                        (int) new Date().getTime()
+                        currentTimestamp
                 )
         );
         db.measurementsDao().insertMeasurements(
@@ -151,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                         2,
                         62,
                         (float) 25.0,
-                        (int) new Date().getTime()
+                        currentTimestamp
                 )
         );
         db.measurementsDao().insertMeasurements(
@@ -161,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
                         2,
                         55,
                         (float) 27.5,
-                        (int) new Date().getTime()
+                        currentTimestamp
                 )
         );
         db.measurementsDao().insertMeasurements(
@@ -171,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
                         3,
                         70,
                         (float) 15.0,
-                        (int) new Date().getTime()
+                        currentTimestamp
                 )
         );
 
