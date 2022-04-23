@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 .addMigrations(MIGRATION_5_6)
                 .build();
 
-//        this._initializeBBDDData(db);
+        this._initializeBBDDData(db);
     }
 
     @Override
@@ -115,6 +115,13 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main, menu);
 
         return true;
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        db.close();
     }
 
     @Override
@@ -135,63 +142,65 @@ public class MainActivity extends AppCompatActivity {
         MeasurementsDao measurementsDao = db.measurementsDao();
 
         Routine routine = routineDao.findOneByID(1);
-        db.routineDao().insertRoutines(
-                new Routine(1, "Weider Routine", true)
-        );
+        if (routine == null) {
+            db.routineDao().insertRoutines(
+                    new Routine(1, "Weider Routine", true)
+            );
 
-        Exercise exercise = exerciseDao.findOneByID(1);
-        db.exerciseDao().insertExercises(new Exercise(1, "Cinta", false));
-        db.exerciseDao().insertExercises(new Exercise(2, "Press de banca", true));
-        db.exerciseDao().insertExercises(new Exercise(3, "Press militar", true));
+            Exercise exercise = exerciseDao.findOneByID(1);
+            db.exerciseDao().insertExercises(new Exercise(1, "Cinta", false));
+            db.exerciseDao().insertExercises(new Exercise(2, "Press de banca", true));
+            db.exerciseDao().insertExercises(new Exercise(3, "Press militar", true));
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeZone(TimeZone.getTimeZone("Europe/Madrid"));
-        long currentTimestamp = calendar.getTimeInMillis();
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeZone(TimeZone.getTimeZone("Europe/Madrid"));
+            long currentTimestamp = calendar.getTimeInMillis();
 
-        db.measurementsDao().insertMeasurements(
-                new Measurements(
-                        1,
-                        1,
-                        1,
-                        1800,
-                        -1,
-                        currentTimestamp
-                )
-        );
-        db.measurementsDao().insertMeasurements(
-                new Measurements(
-                        2,
-                        1,
-                        2,
-                        62,
-                        (float) 25.0,
-                        currentTimestamp
-                )
-        );
-        db.measurementsDao().insertMeasurements(
-                new Measurements(
-                        3,
-                        1,
-                        2,
-                        55,
-                        (float) 27.5,
-                        currentTimestamp
-                )
-        );
-        db.measurementsDao().insertMeasurements(
-                new Measurements(
-                        4,
-                        1,
-                        3,
-                        70,
-                        (float) 15.0,
-                        currentTimestamp
-                )
-        );
+            db.measurementsDao().insertMeasurements(
+                    new Measurements(
+                            1,
+                            1,
+                            1,
+                            1800,
+                            -1,
+                            currentTimestamp
+                    )
+            );
+            db.measurementsDao().insertMeasurements(
+                    new Measurements(
+                            2,
+                            1,
+                            2,
+                            62,
+                            (float) 25.0,
+                            currentTimestamp
+                    )
+            );
+            db.measurementsDao().insertMeasurements(
+                    new Measurements(
+                            3,
+                            1,
+                            2,
+                            55,
+                            (float) 27.5,
+                            currentTimestamp
+                    )
+            );
+            db.measurementsDao().insertMeasurements(
+                    new Measurements(
+                            4,
+                            1,
+                            3,
+                            70,
+                            (float) 15.0,
+                            currentTimestamp
+                    )
+            );
 
-        List<Exercise> exercisesByRoutine = exerciseDao.findByRoutineID(1);
-        List<Routine> routines = routineDao.findAll();
-        List<Exercise> exercises = exerciseDao.findAll();
-        List<Measurements> measurementsList = measurementsDao.findAll();
+            List<Exercise> exercisesByRoutine = exerciseDao.findByRoutineID(1);
+            List<Routine> routines = routineDao.findAll();
+            List<Exercise> exercises = exerciseDao.findAll();
+            List<Measurements> measurementsList = measurementsDao.findAll();
+        }
     }
 }
