@@ -19,6 +19,7 @@ import com.example.gymroutinesapp.model.adapter.MeasurementsAdapter;
 import com.example.gymroutinesapp.model.entity.Exercise;
 import com.example.gymroutinesapp.model.entity.Measurements;
 import com.example.gymroutinesapp.model.entity.Routine;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,6 +35,7 @@ public class ExerciseActivity extends AppCompatActivity {
     private Switch switchWeightMeasurement;
     private Button buttonIncreaseWeight, buttonReduceWeight;
     private RecyclerView measurementsRecyclerView;
+    private TabLayout tabLayout;
 
     private float lastWeight = 0;
     private boolean running = false;
@@ -54,12 +56,31 @@ public class ExerciseActivity extends AppCompatActivity {
         buttonIncreaseWeight = findViewById(R.id.buttonIncreaseWeight);
         buttonReduceWeight = findViewById(R.id.buttonReduceWeight);
         measurementsRecyclerView = findViewById(R.id.measurementsRecyclerView);
+        tabLayout = findViewById(R.id.tabLayout);
 
         exercise = (Exercise) getIntent().getSerializableExtra("Exercise");
         exerciseNameTextView.setText(exercise.getName());
 
         View view = findViewById(android.R.id.content).getRootView();
         _initializeExerciseActivity(MainActivity.db, view);
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab)
+            {
+                if (String.valueOf(tab.getText()).equals("Medidas")) {
+                    measurementsRecyclerView.setVisibility(View.VISIBLE);
+                } else if (String.valueOf(tab.getText()).equals("Gráficas")){
+                    measurementsRecyclerView.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) { }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) { }
+        });
     }
 
     public void startChronometer(View v)
@@ -111,7 +132,7 @@ public class ExerciseActivity extends AppCompatActivity {
     public void onChangeSwitch(View v)
     {
         RelativeLayout.LayoutParams params =
-                (RelativeLayout.LayoutParams)measurementsRecyclerView.getLayoutParams();
+                (RelativeLayout.LayoutParams)tabLayout.getLayoutParams();
         if (switchWeightMeasurement.isChecked()) {
             buttonIncreaseWeight.setVisibility(View.VISIBLE);
             buttonReduceWeight.setVisibility(View.VISIBLE);
@@ -123,7 +144,7 @@ public class ExerciseActivity extends AppCompatActivity {
             weightMeasurementTextView.setVisibility(View.INVISIBLE);
             params.setMargins(0, 600, 0 , 0);
         }
-        measurementsRecyclerView.setLayoutParams(params);
+        tabLayout.setLayoutParams(params);
     }
 
     @SuppressLint("SetTextI18n")
@@ -154,9 +175,9 @@ public class ExerciseActivity extends AppCompatActivity {
         // Ocultamos el Switch si el ejercicio es obligatoriamente con pesas
         if (exercise.getWithWeights()) {
             RelativeLayout.LayoutParams params =
-                    (RelativeLayout.LayoutParams)measurementsRecyclerView.getLayoutParams();
+                    (RelativeLayout.LayoutParams)tabLayout.getLayoutParams();
             params.setMargins(0, 550, 0, 0);
-            measurementsRecyclerView.setLayoutParams(params);
+            tabLayout.setLayoutParams(params);
 
             switchWeightMeasurement.setVisibility(View.INVISIBLE);
 
