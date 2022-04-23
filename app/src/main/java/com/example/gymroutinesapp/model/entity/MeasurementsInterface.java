@@ -92,7 +92,7 @@ public interface MeasurementsInterface {
      *
      * @return Integer
      */
-    public Integer getRegisteredAt();
+    public long getRegisteredAt();
 
     /**
      * Establece la propiedad RegisteredAt en la clase.
@@ -101,7 +101,7 @@ public interface MeasurementsInterface {
      *
      * @return Measurements
      */
-    public Measurements setRegisteredAt(Integer registeredAt);
+    public Measurements setRegisteredAt(long registeredAt);
 
     // ************************************* PUBLIC METHODS *********************************** //
 
@@ -121,7 +121,7 @@ public interface MeasurementsInterface {
                 "exercise_id INTEGER, " +
                 "time_in_seconds INTEGER, " +
                 "weight REAL NOT NULL DEFAULT(-1), " +
-                "registered_at INTEGER" +
+                "registered_at INTEGER NOT NULL DEFAULT(NULL)" +
                 ")";
     }
 

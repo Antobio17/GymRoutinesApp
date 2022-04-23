@@ -21,8 +21,10 @@ import com.example.gymroutinesapp.model.entity.Measurements;
 import com.example.gymroutinesapp.model.entity.Routine;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public class ExerciseActivity extends AppCompatActivity {
 
@@ -90,13 +92,15 @@ public class ExerciseActivity extends AppCompatActivity {
 
             lastWeight = switchWeightMeasurement.isChecked() ? lastWeight : -1;
             int measurementsId = lastMeasurements != null ? lastMeasurements.getId() + 1 : 1;
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeZone(TimeZone.getTimeZone("Europe/Madrid"));
             Measurements newMeasurements = new Measurements(
                     measurementsId,
                     activeRoutine.getId(),
                     exercise.getId(),
-                    seconds,
+                    (h * 3600) + (m * 60) + seconds,
                     lastWeight,
-                    (int) (new Date().getTime()/1000)
+                    calendar.getTimeInMillis()
             );
             MainActivity.db.measurementsDao().insertMeasurements(newMeasurements);
             this.measurements.add(newMeasurements);
@@ -146,6 +150,35 @@ public class ExerciseActivity extends AppCompatActivity {
         List<Measurements> measurementsList = db.measurementsDao().findBy(
                 activeRoutine.getId(), exercise.getId()
         );
+
+        // Ocultamos el Switch si el ejercicio es obligatoriamente con pesas
+        if (exercise.getWithWeights()) {
+            RelativeLayout.LayoutParams params =
+                    (RelativeLayout.LayoutParams)measurementsRecyclerView.getLayoutParams();
+            params.setMargins(0, 550, 0, 0);
+            measurementsRecyclerView.setLayoutParams(params);
+
+            switchWeightMeasurement.setVisibility(View.INVISIBLE);
+
+            params = (RelativeLayout.LayoutParams)buttonIncreaseWeight.getLayoutParams();
+            params.setMargins(0, 475, 0, 0);
+            params.setMarginStart(730);
+            buttonIncreaseWeight.setLayoutParams(params);
+            buttonIncreaseWeight.setVisibility(View.VISIBLE);
+
+            params = (RelativeLayout.LayoutParams)buttonReduceWeight.getLayoutParams();
+            params.setMargins(0, 475, 0, 0);
+            params.setMarginStart(100);
+            buttonReduceWeight.setLayoutParams(params);
+            buttonReduceWeight.setVisibility(View.VISIBLE);
+
+            params = (RelativeLayout.LayoutParams)weightMeasurementTextView.getLayoutParams();
+            params.setMargins(0, 500, 0, 0);
+            weightMeasurementTextView.setLayoutParams(params);
+            weightMeasurementTextView.setVisibility(View.VISIBLE);
+            weightMeasurementTextView.setTextSize(40);
+
+        }
 
         if (measurementsList != null) {
             this.measurements = new ArrayList<>();

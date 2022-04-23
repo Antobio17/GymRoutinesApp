@@ -33,7 +33,7 @@ public class MyRoutinesFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Snackbar.make(
-                        view, "Aún no puedes añadir tus propias rutinas", Snackbar.LENGTH_LONG
+                        view, "Las rutinas están actualizadas", Snackbar.LENGTH_LONG
                 ).setAction("Action", null).show();
             }
         });
