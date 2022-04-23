@@ -28,8 +28,10 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.gymroutinesapp.databinding.ActivityMainBinding;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,6 +54,14 @@ public class MainActivity extends AppCompatActivity {
         public void migrate(SupportSQLiteDatabase database) {
             database.execSQL(MeasurementsInterface.dropTable());
             database.execSQL(MeasurementsInterface.createTable());
+        }
+    };
+
+    static final Migration MIGRATION_5_6 = new Migration(5, 6) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL(ExerciseInterface.dropTable());
+            database.execSQL(ExerciseInterface.createTable());
         }
     };
 
@@ -92,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "gymroutinesapp")
                 .allowMainThreadQueries()
-//                .addMigrations(MIGRATION_3_4)
+                .addMigrations(MIGRATION_5_6)
                 .build();
 
 //        this._initializeBBDDData(db);
@@ -130,11 +140,13 @@ public class MainActivity extends AppCompatActivity {
         );
 
         Exercise exercise = exerciseDao.findOneByID(1);
-        db.exerciseDao().insertExercises(new Exercise(1, "Cinta"));
-        db.exerciseDao().insertExercises(new Exercise(2, "Press de banca"));
-        db.exerciseDao().insertExercises(new Exercise(3, "Press militar"));
+        db.exerciseDao().insertExercises(new Exercise(1, "Cinta", false));
+        db.exerciseDao().insertExercises(new Exercise(2, "Press de banca", true));
+        db.exerciseDao().insertExercises(new Exercise(3, "Press militar", true));
 
-        int currentTimestamp = (int) (new Date().getTime()/1000);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeZone(TimeZone.getTimeZone("Europe/Madrid"));
+        long currentTimestamp = calendar.getTimeInMillis();
 
         db.measurementsDao().insertMeasurements(
                 new Measurements(

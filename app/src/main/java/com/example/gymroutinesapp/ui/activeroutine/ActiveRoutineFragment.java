@@ -32,10 +32,15 @@ public class ActiveRoutineFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState)
     {
         binding = FragmentActiveRoutineBinding.inflate(inflater, container, false);
+
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         View view = binding.getRoot();
         this._initializeRoutineActiveFragment(MainActivity.db, view);
-
-        return view;
     }
 
     @Override

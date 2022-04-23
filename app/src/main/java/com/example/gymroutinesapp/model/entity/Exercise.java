@@ -26,6 +26,9 @@ public class Exercise implements ExerciseInterface, Serializable
     @NonNull
     private String name = "Ejercicio";
 
+    @ColumnInfo(name = "with_weights", defaultValue = "0")
+    private Boolean withWeights;
+
     // *************************************** CONSTRUCT ************************************** //
 
     /**
@@ -33,11 +36,13 @@ public class Exercise implements ExerciseInterface, Serializable
      *
      * @param id   ID de la rutina.
      * @param name Nombre de la rutina.
+     * @param withWeights Indicador de si es un ejercicio con peso.
      */
-    public Exercise(Integer id, String name)
+    public Exercise(Integer id, String name, Boolean withWeights)
     {
         this.setId(id)
-            .setName(name);
+            .setName(name)
+            .setWithWeights(withWeights);
     }
 
     // *********************************** GETTERS AND SETTERS ******************************** //
@@ -79,6 +84,27 @@ public class Exercise implements ExerciseInterface, Serializable
     public Exercise setName(String name)
     {
         this.name = name;
+
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     * @return String
+     */
+    @NonNull
+    public Boolean getWithWeights()
+    {
+        return this.withWeights;
+    }
+
+    /**
+     * {@inheritDoc}
+     * @return Exercise
+     */
+    public Exercise setWithWeights(Boolean withWeights)
+    {
+        this.withWeights = withWeights;
 
         return this;
     }

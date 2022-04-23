@@ -37,6 +37,22 @@ public interface ExerciseInterface {
      */
     Exercise setName(String name);
 
+    /**
+     * Obtiene si el ejercicio es o no con pesos obligatoriamente.
+     *
+     * @return String
+     */
+    Boolean getWithWeights();
+
+    /**
+     * Establece la propiedad WithWeights en la clase.
+     *
+     * @param withWeights Boleano para indicar si obligatoriamente necesita pesos.
+     *
+     * @return Routine
+     */
+    Exercise setWithWeights(Boolean withWeights);
+
     // ************************************* PUBLIC METHODS *********************************** //
 
     // ************************************* STATIC METHODS *********************************** //
@@ -51,7 +67,8 @@ public interface ExerciseInterface {
     {
         return "CREATE TABLE IF NOT EXISTS exercise ( " +
                 "id INTEGER PRIMARY KEY, " +
-                "name TEXT NOT NULL" +
+                "name TEXT NOT NULL," +
+                "with_weights INTEGER DEFAULT(0)" +
                 ")";
     }
 

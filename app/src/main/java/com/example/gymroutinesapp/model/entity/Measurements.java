@@ -31,7 +31,7 @@ public class Measurements implements MeasurementsInterface {
     private float weight;
 
     @ColumnInfo(name = "registered_at")
-    private Integer registeredAt;
+    private long registeredAt;
 
     // *************************************** CONSTRUCT ************************************** //
 
@@ -46,7 +46,7 @@ public class Measurements implements MeasurementsInterface {
      * @param registeredAt Fecha en formato timestamp en la que se han registrado las medidas.
      */
     public Measurements(Integer id, Integer routineID, Integer exerciseID, Integer timeInSeconds,
-                        float weight, Integer registeredAt)
+                        float weight, long registeredAt)
     {
         this.setId(id)
                 .setRoutineID(routineID)
@@ -162,7 +162,7 @@ public class Measurements implements MeasurementsInterface {
      * {@inheritDoc}
      * @return Integer
      */
-    public Integer getRegisteredAt()
+    public long getRegisteredAt()
     {
         return this.registeredAt;
     }
@@ -171,7 +171,7 @@ public class Measurements implements MeasurementsInterface {
      * {@inheritDoc}
      * @return Measurements
      */
-    public Measurements setRegisteredAt(Integer registeredAt)
+    public Measurements setRegisteredAt(long registeredAt)
     {
         this.registeredAt = registeredAt;
 
