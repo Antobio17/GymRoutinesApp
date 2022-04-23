@@ -125,20 +125,16 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="270dp"
-        android:onClick="onClickMeasurements">
+        android:layout_marginTop="270dp">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Medidas"
-            android:onClick="onClickMeasurements"/>
+            android:text="Medidas" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Gráficas"
-            android:onClick="onClickGraphics"/>
+            android:text="Gráficas" />
     </com.google.android.material.tabs.TabLayout>
-
 </RelativeLayout>
