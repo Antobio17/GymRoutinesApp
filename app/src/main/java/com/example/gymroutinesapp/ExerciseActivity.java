@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
@@ -19,11 +20,16 @@ import com.example.gymroutinesapp.model.adapter.MeasurementsAdapter;
 import com.example.gymroutinesapp.model.entity.Exercise;
 import com.example.gymroutinesapp.model.entity.Measurements;
 import com.example.gymroutinesapp.model.entity.Routine;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.Collections;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -36,6 +42,7 @@ public class ExerciseActivity extends AppCompatActivity {
     private Button buttonIncreaseWeight, buttonReduceWeight;
     private RecyclerView measurementsRecyclerView;
     private TabLayout tabLayout;
+    private LineChart lineChart;
 
     private float lastWeight = 0;
     private boolean running = false;
@@ -57,6 +64,7 @@ public class ExerciseActivity extends AppCompatActivity {
         buttonReduceWeight = findViewById(R.id.buttonReduceWeight);
         measurementsRecyclerView = findViewById(R.id.measurementsRecyclerView);
         tabLayout = findViewById(R.id.tabLayout);
+        lineChart = findViewById(R.id.chart);
 
         exercise = (Exercise) getIntent().getSerializableExtra("Exercise");
         exerciseNameTextView.setText(exercise.getName());
@@ -70,8 +78,10 @@ public class ExerciseActivity extends AppCompatActivity {
             {
                 if (String.valueOf(tab.getText()).equals("Medidas")) {
                     measurementsRecyclerView.setVisibility(View.VISIBLE);
+                    lineChart.setVisibility(View.INVISIBLE);
                 } else if (String.valueOf(tab.getText()).equals("Gráficas")){
                     measurementsRecyclerView.setVisibility(View.INVISIBLE);
+                    lineChart.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -209,6 +219,28 @@ public class ExerciseActivity extends AppCompatActivity {
             measurementsRecyclerView.setHasFixedSize(true);
             measurementsRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
             measurementsRecyclerView.setAdapter(measurementsAdapter);
+
+            // Construcción de Chart
+            lineChart.setVisibility(View.INVISIBLE);
+
+            List<Entry> lineArrayList = new ArrayList<>();
+            Collections.reverse(measurementsList);
+            for (int i = 0; i < measurementsList.size(); i++) {
+                if (exercise.getWithWeights()) {
+                    lineArrayList.add(new Entry(i, measurementsList.get(i).getWeight()));
+                } else {
+                    lineArrayList.add(new Entry(
+                            i, (float)measurementsList.get(i).getTimeInSeconds())
+                    );
+                }
+            }
+            Collections.reverse(measurementsList);
+            LineDataSet lineDataSet = new LineDataSet(lineArrayList, "Historial");
+            lineDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+            lineDataSet.setValueTextColor(Color.BLACK);
+            lineDataSet.setValueTextSize(16f);
+            LineData lineData = new LineData(lineDataSet);
+            lineChart.setData(lineData);
 
             // Inicialización de Weight
             if (!measurementsList.isEmpty()) {
