@@ -76,7 +76,7 @@ public class MeasurementsAdapter extends RecyclerView.Adapter<MeasurementsAdapte
         void bindData(final Measurements measurements)
         {
             SimpleDateFormat format = new SimpleDateFormat(
-                    "dd 'de' MMMM 'a las' hh horas", new Locale("es")
+                    "dd 'de' MMMM 'a las' hh 'horas'", new Locale("es")
             );
             Date registeredAt = (new Date());
             registeredAt.setTime(measurements.getRegisteredAt());

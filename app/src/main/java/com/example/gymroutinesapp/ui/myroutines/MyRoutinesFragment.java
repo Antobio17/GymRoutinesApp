@@ -6,14 +6,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.gymroutinesapp.MainActivity;
+import com.example.gymroutinesapp.R;
 import com.example.gymroutinesapp.databinding.FragmentMyRoutinesBinding;
+import com.example.gymroutinesapp.model.AppDatabase;
+import com.example.gymroutinesapp.model.adapter.ExerciseAdapter;
+import com.example.gymroutinesapp.model.adapter.RoutineAdapter;
+import com.example.gymroutinesapp.model.entity.Exercise;
+import com.example.gymroutinesapp.model.entity.Routine;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyRoutinesFragment extends Fragment {
 
     private FragmentMyRoutinesBinding binding;
+    List<Routine> routines;
+    TextView textView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState)
@@ -25,7 +41,7 @@ public class MyRoutinesFragment extends Fragment {
         binding = FragmentMyRoutinesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textHome;
+        textView = binding.textHome;
         myRoutinesViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
         // Añade el evento al botón flotante
@@ -38,7 +54,23 @@ public class MyRoutinesFragment extends Fragment {
             }
         });
 
+        this._initializeMyRoutinesFragment(MainActivity.db, root);
+
         return root;
+    }
+
+    private void _initializeMyRoutinesFragment(AppDatabase db, View view)
+    {
+        this.routines = db.routineDao().findAll();
+
+        if (routines.size() > 0) {
+            textView.setVisibility(View.INVISIBLE);
+        }
+        RoutineAdapter routineAdapter = new RoutineAdapter(this.routines, view.getContext());
+        RecyclerView recyclerView = view.findViewById(R.id.routinesRecycleView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        recyclerView.setAdapter(routineAdapter);
     }
 
     @Override

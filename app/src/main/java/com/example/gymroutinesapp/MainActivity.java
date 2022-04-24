@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.Menu;
 
 import com.example.gymroutinesapp.model.AppDatabase;
-import com.example.gymroutinesapp.model.adapter.ExerciseAdapter;
 import com.example.gymroutinesapp.model.dao.ExerciseDao;
 import com.example.gymroutinesapp.model.dao.MeasurementsDao;
 import com.example.gymroutinesapp.model.dao.RoutineDao;
