@@ -15,7 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.gymroutinesapp.R;
 import com.example.gymroutinesapp.model.entity.Measurements;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MeasurementsAdapter extends RecyclerView.Adapter<MeasurementsAdapter.ViewHolder>
 {
@@ -72,13 +75,16 @@ public class MeasurementsAdapter extends RecyclerView.Adapter<MeasurementsAdapte
         @SuppressLint("SetTextI18n")
         void bindData(final Measurements measurements)
         {
-            performedAt.setText(DateFormat.format(
-                    "dd-MM-yyyy h:m:s", measurements.getRegisteredAt()
-            ).toString());
+            SimpleDateFormat format = new SimpleDateFormat(
+                    "dd 'de' MMMM 'a las' hh horas", new Locale("es")
+            );
+            Date registeredAt = (new Date());
+            registeredAt.setTime(measurements.getRegisteredAt());
+            performedAt.setText(format.format(registeredAt));
 
             int minutes = measurements.getTimeInSeconds() / 60;
             int seconds = measurements.getTimeInSeconds() % 60;
-            String timeText = "Realizado en: ";
+            String timeText = "Tiempo: ";
             if (minutes > 0)
                 timeText += minutes + "' ";
             timeText += seconds + "''";
