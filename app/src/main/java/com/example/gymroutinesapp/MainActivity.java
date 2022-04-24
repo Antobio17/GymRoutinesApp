@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 .addMigrations(MIGRATION_5_6)
                 .build();
 
-        this._initializeBBDDData(db);
+        this._initializeBBDDData(db, false);
     }
 
     @Override
@@ -134,14 +134,14 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    private void _initializeBBDDData(AppDatabase db)
+    private void _initializeBBDDData(AppDatabase db, boolean restart)
     {
         RoutineDao routineDao = db.routineDao();
         ExerciseDao exerciseDao = db.exerciseDao();
         MeasurementsDao measurementsDao = db.measurementsDao();
 
         Routine routine = routineDao.findOneByID(1);
-        if (routine == null) {
+        if (routine == null || restart) {
             db.routineDao().insertRoutines(
                     new Routine(1, "Weider Routine", true)
             );
@@ -200,6 +200,14 @@ public class MainActivity extends AppCompatActivity {
             List<Routine> routines = routineDao.findAll();
             List<Exercise> exercises = exerciseDao.findAll();
             List<Measurements> measurementsList = measurementsDao.findAll();
+
+            // Más rutinas
+            db.routineDao().insertRoutines(
+                    new Routine(2, "Cardio Routine", false)
+            );
+            db.routineDao().insertRoutines(
+                    new Routine(3, "Explosive", false)
+            );
         }
     }
 }
