@@ -71,6 +71,7 @@ public class ExerciseActivity extends AppCompatActivity {
 
         View view = findViewById(android.R.id.content).getRootView();
         _initializeExerciseActivity(MainActivity.db, view);
+        lineChart.setVisibility(View.INVISIBLE);
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -221,8 +222,7 @@ public class ExerciseActivity extends AppCompatActivity {
             measurementsRecyclerView.setAdapter(measurementsAdapter);
 
             // Construcción de Chart
-            lineChart.setVisibility(View.INVISIBLE);
-
+            lineChart.canScrollHorizontally(1);
             List<Entry> lineArrayList = new ArrayList<>();
             Collections.reverse(measurementsList);
             for (int i = 0; i < measurementsList.size(); i++) {
