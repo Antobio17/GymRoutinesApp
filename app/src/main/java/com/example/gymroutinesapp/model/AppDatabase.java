@@ -12,7 +12,7 @@ import com.example.gymroutinesapp.model.dao.ExerciseDao;
 
 @Database(
         entities = {Routine.class, Exercise.class, Measurements.class},
-        version = 6,
+        version = 9,
         exportSchema = false
 )
 public abstract class AppDatabase extends RoomDatabase {

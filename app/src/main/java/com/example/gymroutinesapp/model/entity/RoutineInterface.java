@@ -37,6 +37,22 @@ public interface RoutineInterface {
      */
     Routine setName(String name);
 
+    /**
+     * Obtiene el id de la imagen de la rutina.
+     *
+     * @return Integer
+     */
+    public Integer getImageId();
+
+    /**
+     * Establece la propiedad ImageID en la clase.
+     *
+     * @param imageId ID de la imagen a establecer en la rutina.
+     *
+     * @return Routine
+     */
+    public Routine setImageId(Integer imageId);
+
     // ************************************* PUBLIC METHODS *********************************** //
 
     // ************************************* STATIC METHODS *********************************** //
@@ -52,7 +68,8 @@ public interface RoutineInterface {
         return "CREATE TABLE IF NOT EXISTS routine ( " +
                 "id INTEGER PRIMARY KEY, " +
                 "name TEXT NOT NULL, " +
-                "active INTEGER DEFAULT(0)" +
+                "active INTEGER DEFAULT(0)," +
+                "image_id INTEGER DEFAULT(2131165306)" +
                 ")";
     }
 

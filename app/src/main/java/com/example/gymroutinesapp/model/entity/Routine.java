@@ -27,6 +27,9 @@ public class Routine implements RoutineInterface
     @ColumnInfo(name = "active", defaultValue = "0")
     private Boolean active;
 
+    @ColumnInfo(name = "image_id", defaultValue = "2131165306")
+    private Integer imageId;
+
     // *************************************** CONSTRUCT ************************************** //
 
     /**
@@ -35,11 +38,12 @@ public class Routine implements RoutineInterface
      * @param id ID de la rutina.
      * @param name Nombre de la rutina.
      */
-    public Routine(Integer id, String name, Boolean active)
+    public Routine(Integer id, String name, Boolean active, Integer imageId)
     {
         this.setId(id)
             .setName(name)
-            .setActive(active);
+            .setActive(active)
+            .setImageId(imageId);
     }
 
     // *********************************** GETTERS AND SETTERS ******************************** //
@@ -101,6 +105,26 @@ public class Routine implements RoutineInterface
     public Routine setActive(Boolean active)
     {
         this.active = active;
+
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     * @return Integer
+     */
+    public Integer getImageId()
+    {
+        return this.imageId;
+    }
+
+    /**
+     * {@inheritDoc}
+     * @return Routine
+     */
+    public Routine setImageId(Integer imageId)
+    {
+        this.imageId = imageId;
 
         return this;
     }

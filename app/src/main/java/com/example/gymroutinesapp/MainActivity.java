@@ -28,7 +28,6 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.example.gymroutinesapp.databinding.ActivityMainBinding;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -61,6 +60,14 @@ public class MainActivity extends AppCompatActivity {
         public void migrate(SupportSQLiteDatabase database) {
             database.execSQL(ExerciseInterface.dropTable());
             database.execSQL(ExerciseInterface.createTable());
+        }
+    };
+
+    static final Migration MIGRATION_8_9 = new Migration(8, 9) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL(RoutineInterface.dropTable());
+            database.execSQL(RoutineInterface.createTable());
         }
     };
 
@@ -101,10 +108,10 @@ public class MainActivity extends AppCompatActivity {
         db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "gymroutinesapp")
                 .allowMainThreadQueries()
-                .addMigrations(MIGRATION_5_6)
+                .addMigrations(MIGRATION_8_9)
                 .build();
 
-        this._initializeBBDDData(db, false);
+        this._initializeBBDDData(db, true);
     }
 
     @Override
@@ -143,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         Routine routine = routineDao.findOneByID(1);
         if (routine == null || restart) {
             db.routineDao().insertRoutines(
-                    new Routine(1, "Weider Routine", true)
+                    new Routine(1, "Weider Routine", true, 2131165306)
             );
 
             Exercise exercise = exerciseDao.findOneByID(1);
@@ -203,10 +210,10 @@ public class MainActivity extends AppCompatActivity {
 
             // Más rutinas
             db.routineDao().insertRoutines(
-                    new Routine(2, "Cardio Routine", false)
+                    new Routine(2, "Cardio Routine", false, 2131165355)
             );
             db.routineDao().insertRoutines(
-                    new Routine(3, "Explosive", false)
+                    new Routine(3, "Explosive", false, 2131165356)
             );
         }
     }

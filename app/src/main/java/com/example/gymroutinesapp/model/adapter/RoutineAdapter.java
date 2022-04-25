@@ -78,6 +78,7 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.ViewHold
         {
             int idActiveRoutine = MainActivity.db.routineDao().findActiveRoutine().getId();
             title.setText(routine.getName());
+            image.setBackgroundResource(routine.getImageId());
         }
     }
 }
