@@ -8,6 +8,7 @@
 
     <string name="menu_my_routines">Mis Rutinas</string>
     <string name="menu_active_routine">Rutina Activa</string>
+    <string name="menu_bluetooth">Bluetooth</string>
     <string name="title_activity_exercise">ExerciseActivity</string>
     <string name="iniciar">Iniciar</string>
     <string name="finalizar">Finalizar</string>
