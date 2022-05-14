@@ -68,6 +68,11 @@ public class ExerciseActivity extends AppCompatActivity {
 
         exercise = (Exercise) getIntent().getSerializableExtra("Exercise");
         exerciseNameTextView.setText(exercise.getName());
+    }
+
+    public void onResume()
+    {
+        super.onResume();
 
         View view = findViewById(android.R.id.content).getRootView();
         _initializeExerciseActivity(MainActivity.db, view);

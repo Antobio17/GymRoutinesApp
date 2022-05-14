@@ -36,9 +36,10 @@ public class ActiveRoutineFragment extends Fragment {
         return binding.getRoot();
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onResume()
+    {
+        super.onResume();
+
         View view = binding.getRoot();
         this._initializeRoutineActiveFragment(MainActivity.db, view);
     }
