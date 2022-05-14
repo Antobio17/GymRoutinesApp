@@ -1,5 +1,6 @@
 package com.example.gymroutinesapp;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.Menu;
 
@@ -30,8 +31,13 @@ import com.example.gymroutinesapp.databinding.ActivityMainBinding;
 import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static int REQUEST_ENABLE_BT = 0;
+    public static final String APP_NAME = "gymroutineapp";
+    public static final UUID APP_UUID = UUID.fromString("6723d740-cb08-11ec-9d64-0242ac120002");
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
@@ -71,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    @SuppressLint("MissingPermission")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         // Se accede con el ID que se define en el XML del activity_main_drawer
         // (hace referencia al una etiqueta completa XML).
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_my_rutines, R.id.nav_active_rutine
+                R.id.nav_my_rutines, R.id.nav_active_rutine, R.id.nav_bluetooth
         ).setOpenableLayout(drawer).build();
 
         // Crear el fragment de la navbar lateral
@@ -115,8 +122,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
 
@@ -124,15 +130,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onDestroy()
-    {
+    public void onDestroy() {
         super.onDestroy();
         db.close();
     }
 
     @Override
-    public boolean onSupportNavigateUp()
-    {
+    public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(
                 this, R.id.nav_host_fragment_content_main
         );
@@ -141,8 +145,7 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    private void _initializeBBDDData(AppDatabase db, boolean restart)
-    {
+    private void _initializeBBDDData(AppDatabase db, boolean restart) {
         RoutineDao routineDao = db.routineDao();
         ExerciseDao exerciseDao = db.exerciseDao();
         MeasurementsDao measurementsDao = db.measurementsDao();

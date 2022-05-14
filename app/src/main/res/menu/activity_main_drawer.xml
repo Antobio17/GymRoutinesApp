@@ -12,5 +12,9 @@
             android:id="@+id/nav_active_rutine"
             android:icon="@drawable/ic_fitness_center_black"
             android:title="@string/menu_active_routine" />
+        <item
+            android:id="@+id/nav_bluetooth"
+            android:icon="@drawable/ic_baseline_bluetooth_24"
+            android:title="@string/menu_bluetooth" />
     </group>
 </menu>

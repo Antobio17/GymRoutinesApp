@@ -16,4 +16,9 @@
         android:name="com.example.gymroutinesapp.ui.activeroutine.ActiveRoutineFragment"
         android:label="@string/menu_active_routine"
         tools:layout="@layout/fragment_active_routine" />
+    <fragment
+        android:id="@+id/nav_bluetooth"
+        android:name="com.example.gymroutinesapp.ui.bluetooth.BluetoothFragment"
+        android:label="@string/menu_bluetooth"
+        tools:layout="@layout/fragment_bluetooth" />
 </navigation>
