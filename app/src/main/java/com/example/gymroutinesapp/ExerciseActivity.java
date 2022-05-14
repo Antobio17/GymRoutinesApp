@@ -120,7 +120,7 @@ public class ExerciseActivity extends AppCompatActivity {
             long time = SystemClock.elapsedRealtime() - chronometer.getBase();
             int h = (int)(time /3600000);
             int m = (int)(time - h*3600000)/60000;
-            int seconds = (int)(time - h*3600000- m*60000)/1000 ;
+            int seconds = (int)(time - h*3600000- m*60000)/1000;
 
             lastWeight = switchWeightMeasurement.isChecked() ? lastWeight : -1;
             int measurementsId = lastMeasurements != null ? lastMeasurements.getId() + 1 : 1;

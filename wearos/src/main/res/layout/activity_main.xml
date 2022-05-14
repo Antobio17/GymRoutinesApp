@@ -16,15 +16,19 @@
 
         <TextView
             android:id="@+id/text"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/hello_world" />
+            android:text="@string/conectando"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="center"/>
 
-        <androidx.recyclerview.widget.RecyclerView
+        <androidx.wear.widget.WearableRecyclerView
             android:id="@+id/recycleView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="28dp"
+            android:scrollbars="vertical"/>
 
     </FrameLayout>
 </androidx.wear.widget.BoxInsetLayout>

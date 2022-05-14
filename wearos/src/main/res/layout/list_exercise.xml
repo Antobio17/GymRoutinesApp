@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.wear.widget.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/menu_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/box_inset_layout_padding"
-    tools:context=".MainActivity"
-    tools:deviceIds="wear">
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true"
+    app:contentPadding="5dp"
+    app:contentPaddingLeft="10dp"
+    app:contentPaddingRight="50dp">
 
-    <FrameLayout
+    <TextView
+        android:id="@+id/exerciseName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/inner_frame_layout_padding"
-        app:layout_boxedEdges="all">
-
-        <TextView
-            android:id="@+id/exerciseName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/hello_world" />
-
-    </FrameLayout>
-</androidx.wear.widget.BoxInsetLayout>
+        android:layout_centerVertical="true"
+        android:text="Menu Item"
+        android:textSize="20sp"
+        tools:ignore="HardcodedText" />
+</androidx.cardview.widget.CardView>

@@ -34,4 +34,7 @@ public interface ExerciseDao {
 
     @Query("SELECT * FROM exercise WHERE id = :id")
     public Exercise findOneByID(int id);
+
+    @Query("SELECT * FROM exercise WHERE name = :name")
+    public Exercise findOneByName(String name);
 }

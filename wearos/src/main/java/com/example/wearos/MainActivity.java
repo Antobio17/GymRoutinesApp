@@ -1,12 +1,15 @@
 package com.example.wearos;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.wear.widget.WearableLinearLayoutManager;
+import androidx.wear.widget.WearableRecyclerView;
 
 import com.example.wearos.adapter.ExerciseAdapter;
 import com.example.wearos.bluetooth.AppServer;
@@ -27,8 +30,9 @@ public class MainActivity extends Activity {
 
     private TextView mTextView;
     private ActivityMainBinding binding;
-    private Communicator communicator;
+    public static Communicator communicator;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,14 +70,21 @@ public class MainActivity extends Activity {
                 new ExerciseAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(String exerciseName) {
-//                        _openExercise(exercise);
+                        _openExercise(exerciseName);
                     }
                 }
         );
         mTextView.setText(routineName);
-        RecyclerView recyclerView = view.findViewById(R.id.recycleView);
+        WearableRecyclerView recyclerView = view.findViewById(R.id.recycleView);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        recyclerView.setEdgeItemsCenteringEnabled(true);
+        recyclerView.setLayoutManager(new WearableLinearLayoutManager(this));
         recyclerView.setAdapter(exerciseAdapter);
+    }
+
+    private void _openExercise(String exerciseName) {
+        Intent intent = new Intent(this, ExerciseActivity.class);
+        intent.putExtra("ExerciseName", exerciseName);
+        startActivity(intent);
     }
 }
