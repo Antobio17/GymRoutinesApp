@@ -1,11 +1,10 @@
-package bluetooth;
+package com.example.wearos.bluetooth;
 
 import android.bluetooth.BluetoothSocket;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Base64;
 
 public class Communicator extends Thread
 {

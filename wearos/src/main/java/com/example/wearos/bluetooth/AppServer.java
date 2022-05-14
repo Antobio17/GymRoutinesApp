@@ -1,4 +1,4 @@
-package bluetooth;
+package com.example.wearos.bluetooth;
 
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
@@ -9,6 +9,7 @@ import android.util.Log;
 import com.example.wearos.MainActivity;
 
 import java.io.IOException;
+
 
 public class AppServer extends Thread {
     private final BluetoothServerSocket serverSocket;

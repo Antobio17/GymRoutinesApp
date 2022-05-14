@@ -8,16 +8,15 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.wearos.adapter.ExerciseAdapter;
+import com.example.wearos.bluetooth.AppServer;
+import com.example.wearos.bluetooth.Communicator;
 import com.example.wearos.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
-
-import bluetooth.AppServer;
-import bluetooth.Communicator;
-import model.adapter.ExerciseAdapter;
 
 public class MainActivity extends Activity {
     // adb connect 192.168.1.164:5555
