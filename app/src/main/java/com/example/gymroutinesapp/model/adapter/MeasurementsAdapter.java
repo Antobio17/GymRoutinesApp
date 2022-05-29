@@ -12,7 +12,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.gymroutinesapp.MainActivity;
 import com.example.gymroutinesapp.R;
+import com.example.gymroutinesapp.model.entity.Exercise;
 import com.example.gymroutinesapp.model.entity.Measurements;
 
 import java.text.SimpleDateFormat;
@@ -84,11 +86,19 @@ public class MeasurementsAdapter extends RecyclerView.Adapter<MeasurementsAdapte
 
             int minutes = measurements.getTimeInSeconds() / 60;
             int seconds = measurements.getTimeInSeconds() % 60;
-            String timeText = "Tiempo: ";
-            if (minutes > 0)
-                timeText += minutes + "' ";
-            timeText += seconds + "''";
-            timeInSeconds.setText(timeText);
+
+            Exercise exercise = MainActivity.db.exerciseDao().findOneByID(measurements.getExerciseID());
+
+            if (exercise.getHasReps()) {
+                String repsText = "Repeticiones: " + measurements.getReps();
+                timeInSeconds.setText(repsText);
+            } else {
+                String timeText = "Tiempo: ";
+                if (minutes > 0)
+                    timeText += minutes + "' ";
+                timeText += seconds + "''";
+                timeInSeconds.setText(timeText);
+            }
 
             if (measurements.getWeight() != -1) {
                 weight.setText("Peso: " + measurements.getWeight() + "KG");

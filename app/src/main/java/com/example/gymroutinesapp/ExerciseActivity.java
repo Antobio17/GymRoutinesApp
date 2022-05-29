@@ -35,11 +35,11 @@ import java.util.TimeZone;
 
 public class ExerciseActivity extends AppCompatActivity {
 
-    private TextView exerciseNameTextView, weightMeasurementTextView;
+    private TextView exerciseNameTextView, weightMeasurementTextView, repsText;
     private Chronometer chronometer;
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch switchWeightMeasurement;
-    private Button buttonIncreaseWeight, buttonReduceWeight;
+    private Button buttonIncreaseWeight, buttonReduceWeight, reduceRepsButton, increaseRepsButton;
     private RecyclerView measurementsRecyclerView;
     private TabLayout tabLayout;
     private LineChart lineChart;
@@ -50,6 +50,8 @@ public class ExerciseActivity extends AppCompatActivity {
     private Exercise exercise;
     private Routine activeRoutine;
     private Measurements lastMeasurements;
+
+    private Integer reps = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +64,10 @@ public class ExerciseActivity extends AppCompatActivity {
         switchWeightMeasurement = findViewById(R.id.switchWeightMeasurement);
         buttonIncreaseWeight = findViewById(R.id.buttonIncreaseWeight);
         buttonReduceWeight = findViewById(R.id.buttonReduceWeight);
+        reduceRepsButton = findViewById(R.id.buttonReduceReps);
+        increaseRepsButton = findViewById(R.id.buttonIncreaseReps);
         measurementsRecyclerView = findViewById(R.id.measurementsRecyclerView);
+        repsText = findViewById(R.id.repsText);
         tabLayout = findViewById(R.id.tabLayout);
         lineChart = findViewById(R.id.chart);
 
@@ -137,7 +142,8 @@ public class ExerciseActivity extends AppCompatActivity {
                     exercise.getId(),
                     (h * 3600) + (m * 60) + seconds,
                     lastWeight,
-                    calendar.getTimeInMillis()
+                    calendar.getTimeInMillis(),
+                    reps
             );
             MainActivity.db.measurementsDao().insertMeasurements(newMeasurements);
             this.measurements.add(newMeasurements);
@@ -180,6 +186,22 @@ public class ExerciseActivity extends AppCompatActivity {
     }
 
     @SuppressLint("SetTextI18n")
+    public void reduceReps(View v)
+    {
+        reps -= 1;
+        reps = reps > 0 ? reps : 0;
+        repsText.setText(reps + " Reps");
+    }
+
+    @SuppressLint("SetTextI18n")
+    public void increaseReps(View v)
+    {
+        reps = reps > 0 ? reps : 0;
+        reps += 1;
+        repsText.setText(reps + " Reps");
+    }
+
+    @SuppressLint("SetTextI18n")
     private void _initializeExerciseActivity(AppDatabase db, View view)
     {
         chronometer.setBase(SystemClock.elapsedRealtime());
@@ -217,6 +239,12 @@ public class ExerciseActivity extends AppCompatActivity {
 
         }
 
+        if (!exercise.getHasReps()) {
+            repsText.setVisibility(View.INVISIBLE);
+            reduceRepsButton.setVisibility(View.INVISIBLE);
+            increaseRepsButton.setVisibility(View.INVISIBLE);
+        }
+
         if (measurementsList != null) {
             this.measurements = new ArrayList<>();
             this.measurements.addAll(measurementsList);
@@ -250,6 +278,7 @@ public class ExerciseActivity extends AppCompatActivity {
             // Inicialización de Weight
             if (!measurementsList.isEmpty()) {
                 lastMeasurements = measurementsList.get(0);
+                repsText.setText(lastMeasurements.getReps() + " Reps");
                 if (lastMeasurements.getWeight() != -1) {
                     switchWeightMeasurement.setChecked(true);
                     lastWeight = lastMeasurements.getWeight();

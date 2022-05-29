@@ -121,7 +121,8 @@ public interface MeasurementsInterface {
                 "exercise_id INTEGER, " +
                 "time_in_seconds INTEGER, " +
                 "weight REAL NOT NULL DEFAULT(-1), " +
-                "registered_at INTEGER NOT NULL DEFAULT(NULL)" +
+                "registered_at INTEGER NOT NULL DEFAULT(NULL), " +
+                "reps INTEGER DEFAULT(0)" +
                 ")";
     }
 

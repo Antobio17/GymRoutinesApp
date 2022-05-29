@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    static final Migration MIGRATION_8_9 = new Migration(8, 9) {
+    static final Migration MIGRATION_9_10 = new Migration(9, 10) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
             database.execSQL(RoutineInterface.dropTable());
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "gymroutinesapp")
                 .allowMainThreadQueries()
-                .addMigrations(MIGRATION_8_9)
+                .addMigrations(MIGRATION_9_10)
                 .build();
 
         this._initializeBBDDData(db, true);
@@ -157,9 +157,9 @@ public class MainActivity extends AppCompatActivity {
             );
 
             Exercise exercise = exerciseDao.findOneByID(1);
-            db.exerciseDao().insertExercises(new Exercise(1, "Cinta", false));
-            db.exerciseDao().insertExercises(new Exercise(2, "Press de banca", true));
-            db.exerciseDao().insertExercises(new Exercise(3, "Press militar", true));
+            db.exerciseDao().insertExercises(new Exercise(1, "Cinta", false, false));
+            db.exerciseDao().insertExercises(new Exercise(2, "Press de banca", true, true));
+            db.exerciseDao().insertExercises(new Exercise(3, "Press militar", true, true));
 
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeZone(TimeZone.getTimeZone("Europe/Madrid"));
@@ -172,7 +172,8 @@ public class MainActivity extends AppCompatActivity {
                             1,
                             1800,
                             -1,
-                            currentTimestamp
+                            currentTimestamp,
+                            0
                     )
             );
             db.measurementsDao().insertMeasurements(
@@ -182,7 +183,8 @@ public class MainActivity extends AppCompatActivity {
                             2,
                             62,
                             (float) 25.0,
-                            currentTimestamp
+                            currentTimestamp,
+                            10
                     )
             );
             db.measurementsDao().insertMeasurements(
@@ -192,7 +194,8 @@ public class MainActivity extends AppCompatActivity {
                             2,
                             55,
                             (float) 27.5,
-                            currentTimestamp
+                            currentTimestamp,
+                            10
                     )
             );
             db.measurementsDao().insertMeasurements(
@@ -202,7 +205,8 @@ public class MainActivity extends AppCompatActivity {
                             3,
                             70,
                             (float) 15.0,
-                            currentTimestamp
+                            currentTimestamp,
+                            10
                     )
             );
 

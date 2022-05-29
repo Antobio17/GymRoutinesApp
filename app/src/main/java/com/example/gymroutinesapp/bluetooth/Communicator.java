@@ -76,6 +76,7 @@ public class Communicator extends Thread {
                     String[] measurementsSplits = message.split(";");
                     String exerciseName = measurementsSplits[0];
                     String timeInSeconds = measurementsSplits[1];
+                    String reps = measurementsSplits[2];
 
                     ExerciseDao exerciseDao = db.exerciseDao();
                     Exercise exercise = db.exerciseDao().findOneByName(exerciseName);
@@ -100,13 +101,10 @@ public class Communicator extends Thread {
                             exercise.getId(),
                             Integer.parseInt(timeInSeconds),
                             lastWeight,
-                            calendar.getTimeInMillis()
+                            calendar.getTimeInMillis(),
+                            Integer.parseInt(reps)
                     );
                     MainActivity.db.measurementsDao().insertMeasurements(newMeasurements);
-                    List<Measurements> measurementsList2 = db.measurementsDao().findBy(
-                            activeRoutine.getId(), exercise.getId()
-                    );
-                    String name = "a";
                 }
             } catch (IOException e) {
                 e.printStackTrace();

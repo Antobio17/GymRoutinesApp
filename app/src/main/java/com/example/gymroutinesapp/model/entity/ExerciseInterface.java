@@ -68,7 +68,8 @@ public interface ExerciseInterface {
         return "CREATE TABLE IF NOT EXISTS exercise ( " +
                 "id INTEGER PRIMARY KEY, " +
                 "name TEXT NOT NULL," +
-                "with_weights INTEGER DEFAULT(0)" +
+                "with_weights INTEGER DEFAULT(0), " +
+                "has_reps INTEGER DEFAULT(0)" +
                 ")";
     }
 
