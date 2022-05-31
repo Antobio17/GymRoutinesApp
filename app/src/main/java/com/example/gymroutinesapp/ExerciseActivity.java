@@ -113,6 +113,8 @@ public class ExerciseActivity extends AppCompatActivity {
             switchWeightMeasurement.setClickable(false);
             buttonIncreaseWeight.setClickable(false);
             buttonReduceWeight.setClickable(false);
+            increaseRepsButton.setClickable(false);
+            reduceRepsButton.setClickable(false);
             running = true;
         }
     }
@@ -125,6 +127,8 @@ public class ExerciseActivity extends AppCompatActivity {
             switchWeightMeasurement.setClickable(true);
             buttonIncreaseWeight.setClickable(true);
             buttonReduceWeight.setClickable(true);
+            increaseRepsButton.setClickable(true);
+            reduceRepsButton.setClickable(true);
             running = false;
 
             long time = SystemClock.elapsedRealtime() - chronometer.getBase();

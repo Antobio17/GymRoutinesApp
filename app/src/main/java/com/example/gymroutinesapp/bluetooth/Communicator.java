@@ -78,7 +78,6 @@ public class Communicator extends Thread {
                     String timeInSeconds = measurementsSplits[1];
                     String reps = measurementsSplits[2];
 
-                    ExerciseDao exerciseDao = db.exerciseDao();
                     Exercise exercise = db.exerciseDao().findOneByName(exerciseName);
 
                     List<Measurements> measurementsList = db.measurementsDao().findBy(

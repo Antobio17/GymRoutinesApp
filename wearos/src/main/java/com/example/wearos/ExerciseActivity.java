@@ -61,7 +61,6 @@ public class ExerciseActivity extends Activity {
                 } else if ((int)value <= (intValue + 2) && (int)value >= (intValue - 2)) {
                     changed = false;
                     repetitions++;
-                    System.out.println(repetitions);
                 }
             }
 
@@ -114,6 +113,7 @@ public class ExerciseActivity extends Activity {
             int m = (int) (time - h * 3600000) / 60000;
             int seconds = (int) (time - h * 3600000 - m * 60000) / 1000;
             int timeInSeconds = (h * 3600) + (m * 60) + seconds;
+            chronometer.setBase(SystemClock.elapsedRealtime());
 
             communicator.write((exerciseName + ";" + timeInSeconds + ";" + reps).getBytes());
         }
