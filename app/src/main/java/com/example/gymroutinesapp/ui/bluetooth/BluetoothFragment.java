@@ -86,9 +86,9 @@ public class BluetoothFragment extends Fragment {
                                 new BluetoothDeviceAdapter.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(BluetoothDevice bluetoothDevice) {
-                                        int maxTries = 5, counter = 0;
-                                        AppClient appClient = new AppClient(bluetoothDevice);
+                                        int maxTries = 2, counter = 0;
                                         do {
+                                            AppClient appClient = new AppClient(bluetoothDevice);
                                             counter++;
                                             appClient.start();
                                             try {
@@ -99,7 +99,7 @@ public class BluetoothFragment extends Fragment {
                                             }
                                             communicator = appClient.getCommunication();
                                             if (communicator == null) {
-                                                appClient.stop();
+                                                appClient = null;
                                             }
                                         } while (communicator == null && counter < maxTries);
 
