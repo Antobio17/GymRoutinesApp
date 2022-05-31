@@ -18,10 +18,21 @@
             android:id="@+id/text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/conectando"
+            android:text="¡Bienvenido! Conéctate"
             android:textSize="18sp"
             android:textStyle="bold"
             android:gravity="center"/>
+
+        <ImageButton
+            android:id="@+id/connectButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:onClick="connectionStart"
+            android:layout_marginTop="70dp"
+            android:layout_marginStart="50dp"
+            android:src="@drawable/ic_baseline_cast_connected_24"
+            android:gravity="center"
+            tools:ignore="ContentDescription" />
 
         <androidx.wear.widget.WearableRecyclerView
             android:id="@+id/recycleView"

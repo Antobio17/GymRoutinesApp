@@ -115,6 +115,7 @@ public class ExerciseActivity extends Activity {
             int timeInSeconds = (h * 3600) + (m * 60) + seconds;
             chronometer.setBase(SystemClock.elapsedRealtime());
 
+            repetitions = 0;
             communicator.write((exerciseName + ";" + timeInSeconds + ";" + reps).getBytes());
         }
     }

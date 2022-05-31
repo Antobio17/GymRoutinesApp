@@ -4,8 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
+import android.os.Looper;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.wear.widget.WearableLinearLayoutManager;
@@ -29,6 +30,7 @@ public class MainActivity extends Activity {
     public static final UUID APP_UUID = UUID.fromString("6723d740-cb08-11ec-9d64-0242ac120002");
 
     private TextView mTextView;
+    private ImageButton button;
     private ActivityMainBinding binding;
     public static Communicator communicator;
 
@@ -41,22 +43,34 @@ public class MainActivity extends Activity {
         setContentView(binding.getRoot());
 
         mTextView = binding.text;
+        button = binding.connectButton;
+    }
 
-        AppServer serverClass = new AppServer();
-        serverClass.start();
+    public void connectionStart(View view) {
+        button.setVisibility(View.INVISIBLE);
+        mTextView.setText("Conectando...");
 
-        do {
-            communicator = serverClass.getCommunication();
-        } while (communicator == null);
+        new android.os.Handler(Looper.getMainLooper()).postDelayed(
+                new Runnable() {
+                    public void run() {
+                        AppServer serverClass = new AppServer();
+                        serverClass.start();
 
-        communicator.write((GET_EXERCISES).getBytes());
+                        do {
+                            communicator = serverClass.getCommunication();
+                        } while (communicator == null);
 
-        String exercises = null;
-        do {
-            exercises = communicator.getBuffer();
-        } while (exercises == null);
+                        communicator.write((GET_EXERCISES).getBytes());
 
-        this._initializeView(binding.getRoot(), exercises);
+                        String exercises = null;
+                        do {
+                            exercises = communicator.getBuffer();
+                        } while (exercises == null);
+
+                        _initializeView(binding.getRoot(), exercises);
+                    }
+                },
+                300);
     }
 
     private void _initializeView(View view, String exercises) {

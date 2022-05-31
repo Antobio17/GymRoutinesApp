@@ -205,6 +205,11 @@ public class ExerciseActivity extends AppCompatActivity {
         repsText.setText(reps + " Reps");
     }
 
+    public void refresh(View v)
+    {
+        _initializeExerciseActivity(MainActivity.db, v);
+    }
+
     @SuppressLint("SetTextI18n")
     private void _initializeExerciseActivity(AppDatabase db, View view)
     {
